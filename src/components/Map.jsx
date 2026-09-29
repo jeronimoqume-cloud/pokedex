@@ -9,13 +9,13 @@ function Tile({ kind, x, y, sprites }) {
   let base = ground;
   let overlay = null;
 
-  if (kind === TILE.PATH) base = sprites.path;
+  if (kind === TILE.PATH) base = sprites.path ?? ground;
   else if (kind === TILE.TALL_GRASS) base = sprites.tallGrass;
   else if (kind === TILE.TREE) overlay = sprites.trees[treeVariant(x, y, sprites.trees.length)];
-  else if (kind === TILE.BUSH) overlay = sprites.bush;
+  else if (kind === TILE.BUSH) overlay = sprites.bushes[treeVariant(x, y, sprites.bushes.length)];
 
   return (
-    <div className="tile" style={style}>
+    <div className={kind === TILE.PORTAL ? "tile tile-portal" : "tile"} style={style}>
       <img src={base} alt="" draggable={false} />
       {overlay && <img src={overlay} alt="" draggable={false} />}
     </div>

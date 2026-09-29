@@ -37,6 +37,14 @@ export function GameProvider({ children }) {
       setPlayer({ ...p, facing });
       return;
     }
+    // Portal: cambia de área y coloca al jugador junto a la entrada de la otra
+    const portal = area.portals?.find((p) => p.x === nx && p.y === ny);
+    if (portal) {
+      setAreaId(portal.to);
+      setPlayer({ ...portal.spawn, facing });
+      return;
+    }
+
     setPlayer({ x: nx, y: ny, facing });
 
     // Encuentro aleatorio al pisar pasto alto

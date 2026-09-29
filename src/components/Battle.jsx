@@ -183,7 +183,7 @@ export default function Battle() {
   return (
     <div
       className="bt"
-      style={{ width: area.map[0].length * TILE_PX, height: area.map.length * TILE_PX }}
+      style={{ width: area.map[0].length * TILE_PX, height: area.map.length * TILE_PX, background: area.battleBg }}
     >
       {failed ? (
         <div className="bt-center">

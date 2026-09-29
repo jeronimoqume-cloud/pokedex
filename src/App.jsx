@@ -10,6 +10,7 @@ const TILE_NAMES = {
   [TILE.GROUND]: "suelo",
   [TILE.PATH]: "camino",
   [TILE.TALL_GRASS]: "pasto alto",
+  [TILE.PORTAL]: "salida",
 };
 
 function Screen() {

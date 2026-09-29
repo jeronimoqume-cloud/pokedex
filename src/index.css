@@ -33,3 +33,14 @@ img { image-rendering: pixelated; display: block; }
 .player img { width: 100%; height: 100%; }
 
 .hud { font-size: 14px; opacity: 0.85; text-align: center; }
+
+/* Marca de las salidas entre áreas */
+.tile-portal::after {
+  content: "";
+  position: absolute;
+  inset: 8px;
+  border: 3px dashed rgba(255, 224, 70, 0.95);
+  border-radius: 50%;
+  animation: portal-pulse 0.9s ease-in-out infinite alternate;
+}
+@keyframes portal-pulse { from { opacity: 0.35; } to { opacity: 1; } }
