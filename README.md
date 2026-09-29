@@ -1,3 +1,6 @@
+# Deployment URL:
+https://jeronimoqume-cloud.github.io/pokedex/
+
 # PokeGame
 
 A Pokémon-inspired exploration and battle web game built with React and Vite. Explore the Forest, Snow, and Cave areas; encounter wild Pokémon; build your team; and browse the Pokédex.
