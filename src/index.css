@@ -47,3 +47,41 @@ img { image-rendering: pixelated; display: block; }
 
 .hud-party { margin-top: -6px; }
 .hud-party .fainted { color: #ff8a80; }
+
+/* Hidden for mouse/keyboard devices; shown on phones and tablets with touch input. */
+.mobile-controls { display: none; }
+
+@media (hover: none) and (pointer: coarse) {
+  .mobile-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    width: min(100%, 360px);
+    padding: 4px 0 12px;
+    touch-action: manipulation;
+  }
+
+  .mobile-dpad {
+    display: grid;
+    grid-template-columns: repeat(3, 52px);
+    grid-template-rows: repeat(3, 52px);
+    gap: 4px;
+  }
+
+  .mobile-controls button {
+    border: 2px solid #000;
+    border-radius: 10px;
+    background: #3d5278;
+    color: #fff;
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .mobile-controls button:active { transform: translateY(2px); background: #283a59; }
+  .mobile-dpad button { font-size: 20px; }
+  .mobile-dpad-center { border: 2px solid #000; border-radius: 50%; background: #1b1b24; }
+  .mobile-pokedex { min-width: 92px; min-height: 52px; padding: 8px; }
+}

@@ -16,6 +16,24 @@ const TILE_NAMES = {
   [TILE.PORTAL]: "salida",
 };
 
+function MobileControls({ onMove, onPokedex }) {
+  return (
+    <div className="mobile-controls" aria-label="Touch controls">
+      <div className="mobile-dpad" aria-label="Movement controls">
+        <span />
+        <button type="button" aria-label="Move up" onClick={() => onMove("up")}>▲</button>
+        <span />
+        <button type="button" aria-label="Move left" onClick={() => onMove("left")}>◀</button>
+        <span className="mobile-dpad-center" aria-hidden="true" />
+        <button type="button" aria-label="Move right" onClick={() => onMove("right")}>▶</button>
+        <span />
+        <button type="button" aria-label="Move down" onClick={() => onMove("down")}>▼</button>
+      </div>
+      <button type="button" className="mobile-pokedex" onClick={onPokedex}>Pokédex</button>
+    </div>
+  );
+}
+
 function Screen() {
   const { mode, area, player, move, party, captured, openPokedex, closePokedex, goToTitle } = useGame();
   useKeyboard(move, mode === "explore");
@@ -73,6 +91,7 @@ function Screen() {
           ))}
         </div>
       )}
+      {mode === "explore" && <MobileControls onMove={move} onPokedex={openPokedex} />}
     </div>
   );
 }
