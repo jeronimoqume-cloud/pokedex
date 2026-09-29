@@ -1,6 +1,7 @@
 import { TILE } from "../game/areas.js";
 import { TILE_PX } from "../game/config.js";
 import { groundVariant, treeVariant } from "../utils/map.js";
+import { asset } from "../utils/asset.js";
 
 function Tile({ kind, x, y, sprites }) {
   const style = { left: x * TILE_PX, top: y * TILE_PX, width: TILE_PX, height: TILE_PX };
@@ -16,13 +17,13 @@ function Tile({ kind, x, y, sprites }) {
 
   return (
     <div className={kind === TILE.PORTAL ? "tile tile-portal" : "tile"} style={style}>
-      <img src={base} alt="" draggable={false} />
-      {overlay && <img src={overlay} alt="" draggable={false} />}
+      <img src={asset(base)} alt="" draggable={false} />
+      {overlay && <img src={asset(overlay)} alt="" draggable={false} />}
     </div>
   );
 }
 
-export default function Map({ area, player }) {
+export default function GameMap({ area, player }) {
   const { map, sprites } = area;
   const width = map[0].length * TILE_PX;
   const height = map.length * TILE_PX;
@@ -39,7 +40,7 @@ export default function Map({ area, player }) {
         style={{ left: player.x * TILE_PX, top: player.y * TILE_PX, width: TILE_PX, height: TILE_PX }}
       >
         <img
-          src="/sprites/player/player.png"
+          src={asset("/sprites/player/player.png")}
           alt="Jugador"
           draggable={false}
           style={{ transform: player.facing === "left" ? "scaleX(-1)" : "none" }}

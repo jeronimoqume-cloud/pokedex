@@ -1,3 +1,5 @@
+import { PLAYER_HP_MULTIPLIER } from "../game/config.js";
+
 // Daño = (ataque / defensa) * 12 * aleatorio(0.85 a 1).
 // La relación ataque/defensa se limita entre 0.5 y 2 para que ningún combate sea absurdo.
 export function calcDamage(attacker, defender, rng = Math.random) {
@@ -9,3 +11,6 @@ export function calcDamage(attacker, defender, rng = Math.random) {
 export function catchChance(currentHp, maxHp) {
   return Math.min(0.95, 0.2 + 0.6 * (1 - currentHp / maxHp));
 }
+
+// PS máximos de un Pokémon del jugador (los salvajes usan sus PS base sin multiplicar)
+export const maxHp = (pokemon) => Math.round(pokemon.stats.hp * PLAYER_HP_MULTIPLIER);

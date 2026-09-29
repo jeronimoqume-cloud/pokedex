@@ -10,3 +10,8 @@ export const STARTER_ID = 25;          // Pokémon inicial del jugador (25 = Pik
 export const PLAYER_HP_MULTIPLIER = 2; // el Pokémon del jugador tiene el doble de PS para que la batalla sea justa
 export const FLEE_CHANCE = 0.7;        // probabilidad de huir con éxito
 export const TURN_DELAY_MS = 900;      // pausa entre mensajes de la batalla
+
+// Equipo y desmayos
+export const PARTY_SIZE = 6;           // Pokémon que caben en el equipo (el resto va a la caja)
+export const REGEN_PER_STEP = 0.03;    // fracción de PS máximos que se recupera por paso caminado
+export const REVIVE_AT = 0.25;         // un Pokémon debilitado vuelve a poder pelear al recuperar este % de PS

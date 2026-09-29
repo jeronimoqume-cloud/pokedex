@@ -1,4 +1,5 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 
-export default defineConfig({ plugins: [react()] });
+// base "./" permite desplegar en un subpath (p. ej. GitHub Pages) sin romper los sprites.
+export default defineConfig({ base: "./", plugins: [react()] });

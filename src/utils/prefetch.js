@@ -1,6 +1,7 @@
 import { AREAS } from "../game/areas.js";
 import { STARTER_ID } from "../game/config.js";
 import { fetchPokemon, fetchPokemonNames, fetchTypeIds } from "./pokeapi.js";
+import { asset } from "./asset.js";
 
 const quiet = (promise) => promise.catch(() => {}); // si falla, se reintenta cuando se necesite
 
@@ -20,6 +21,6 @@ export function prefetchGameData() {
   }
   paths.forEach((src) => {
     const img = new Image();
-    img.src = src;
+    img.src = asset(src);
   });
 }
