@@ -1,7 +1,8 @@
-import { createContext, useCallback, useContext, useMemo, useRef, useState } from "react";
+import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from "react";
 import { AREAS, START_AREA, TILE } from "./areas.js";
 import { ENCOUNTER_CHANCE, MOVE_DELAY_MS } from "./config.js";
 import { canWalk } from "../utils/map.js";
+import { prefetchGameData } from "../utils/prefetch.js";
 
 // Modos del juego: "explore" | "battle" | "pokedex" (el de pokedex llega en el Paso 5)
 const GameContext = createContext(null);
@@ -18,6 +19,11 @@ export function GameProvider({ children }) {
   const live = useRef({});
   live.current = { mode, areaId, player };
   const lastMove = useRef(0);
+
+  // Precarga de datos y sprites al iniciar el juego
+  useEffect(() => {
+    prefetchGameData();
+  }, []);
 
   const move = useCallback((dir) => {
     const { mode, areaId, player: p } = live.current;
