@@ -11,7 +11,7 @@ const TILE_NAMES = {
 };
 
 function Screen() {
-  const { mode, area, player, move } = useGame();
+  const { mode, area, player, move, captured } = useGame();
   useKeyboard(move, mode === "explore");
 
   const current = area.map[player.y][player.x];
@@ -22,8 +22,8 @@ function Screen() {
       {mode === "battle" ? <Battle /> : <Map area={area} player={player} />}
       <div className="hud">
         {mode === "battle"
-          ? "Modo: batalla · Esc para volver al mapa"
-          : `Modo: explorar · Flechas o WASD · Posición (${player.x}, ${player.y}) · Casilla: ${TILE_NAMES[current] ?? "?"}`}
+          ? "Modo: batalla · Debilita al Pokémon sin derrotarlo y lanza la Pokébola para atraparlo"
+          : `Modo: explorar · Flechas o WASD · Posición (${player.x}, ${player.y}) · Casilla: ${TILE_NAMES[current] ?? "?"} · Capturados: ${captured.length}`}
       </div>
     </div>
   );

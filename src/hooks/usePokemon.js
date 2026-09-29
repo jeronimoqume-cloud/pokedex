@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
-import { fetchRandomPokemon } from "../utils/pokeapi.js";
+import { fetchPokemon, fetchRandomPokemon } from "../utils/pokeapi.js";
 
-// Carga un Pokémon salvaje al azar según los tipos del área.
-// status: "loading" | "ready" | "error"
-export function useWildPokemon(types) {
+// Ejecuta una carga asíncrona con estados: "loading" | "ready" | "error"
+function useLoad(loader, deps) {
   const [state, setState] = useState({ status: "loading", pokemon: null, error: null });
   const [attempt, setAttempt] = useState(0);
 
@@ -11,7 +10,7 @@ export function useWildPokemon(types) {
     let cancelled = false;
     setState({ status: "loading", pokemon: null, error: null });
 
-    fetchRandomPokemon(types)
+    loader()
       .then((pokemon) => {
         if (!cancelled) setState({ status: "ready", pokemon, error: null });
       })
@@ -22,7 +21,17 @@ export function useWildPokemon(types) {
     return () => {
       cancelled = true;
     };
-  }, [types, attempt]);
+  }, [...deps, attempt]);
 
   return { ...state, retry: () => setAttempt((a) => a + 1) };
+}
+
+// Pokémon salvaje al azar según los tipos del área
+export function useWildPokemon(types) {
+  return useLoad(() => fetchRandomPokemon(types), [types]);
+}
+
+// Un Pokémon concreto por id o nombre (por ejemplo, el inicial del jugador)
+export function usePokemon(idOrName) {
+  return useLoad(() => fetchPokemon(idOrName), [idOrName]);
 }

@@ -12,6 +12,7 @@ export function GameProvider({ children }) {
   const [mode, setMode] = useState("explore");
   const [areaId, setAreaId] = useState(START_AREA);
   const [player, setPlayer] = useState(() => ({ ...AREAS[START_AREA].start, facing: "down" }));
+  const [captured, setCaptured] = useState([]); // Pokémon atrapados
 
   // Copia del estado actual para leerlo dentro de callbacks sin recrearlos
   const live = useRef({});
@@ -51,11 +52,13 @@ export function GameProvider({ children }) {
       area: AREAS[areaId],
       player,
       move,
+      captured,
+      addCaptured: (pokemon) => setCaptured((list) => [...list, pokemon]),
       setAreaId,
       startBattle: () => setMode("battle"),
       endBattle: () => setMode("explore"),
     }),
-    [mode, areaId, player, move]
+    [mode, areaId, player, move, captured]
   );
 
   return <GameContext.Provider value={value}>{children}</GameContext.Provider>;
