@@ -57,6 +57,9 @@ export function GameProvider({ children }) {
       setAreaId,
       startBattle: () => setMode("battle"),
       endBattle: () => setMode("explore"),
+      // Solo se puede abrir la Pokédex desde el modo explorar (nunca en batalla)
+      openPokedex: () => setMode((m) => (m === "explore" ? "pokedex" : m)),
+      closePokedex: () => setMode((m) => (m === "pokedex" ? "explore" : m)),
     }),
     [mode, areaId, player, move, captured]
   );

@@ -5,6 +5,7 @@ const BASE = "https://pokeapi.co/api/v2";
 // Cachés en memoria: guardan la promesa, así no se repiten llamadas (ni siquiera simultáneas)
 const pokemonCache = new Map(); // id o nombre -> Promise<pokemon>
 const typeCache = new Map();    // tipo -> Promise<number[]> (ids permitidos)
+const namesCache = new Map();   // "all" -> Promise<{id, name}[]>
 
 async function getJSON(url) {
   const res = await fetch(url);
@@ -34,6 +35,8 @@ function normalize(data) {
       hp: stat("hp"),
       attack: stat("attack"),
       defense: stat("defense"),
+      spAttack: stat("special-attack"),
+      spDefense: stat("special-defense"),
       speed: stat("speed"),
     },
     sprites: {
@@ -70,6 +73,18 @@ export async function fetchRandomPokemon(types) {
   if (ids.length === 0) throw new Error(`No hay Pokémon de tipo ${type} con id <= ${MAX_ID}`);
   const id = ids[Math.floor(Math.random() * ids.length)];
   return fetchPokemon(id);
+}
+
+// Lista de todos los Pokémon (id y nombre) para el buscador de la Pokédex.
+// Los ids mayores a 10000 son formas alternativas (mega, regionales...), se omiten.
+export function fetchPokemonNames() {
+  return cached(namesCache, "all", async () => {
+    const data = await getJSON(`${BASE}/pokemon?limit=1500`);
+    return data.results
+      .map((r) => ({ id: Number(r.url.match(/\/pokemon\/(\d+)\/?$/)?.[1]), name: r.name }))
+      .filter((p) => p.id >= 1 && p.id < 10000)
+      .sort((a, b) => a.id - b.id);
+  });
 }
 
 export function formatName(name) {
