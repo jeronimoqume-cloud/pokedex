@@ -1,53 +1,79 @@
 # PokeGame
 
-RPG explorable hecho con React + Vite y la [PokeAPI](https://pokeapi.co).
+A Pokémon-inspired exploration and battle web game built with React and Vite. Explore the Forest, Snow, and Cave areas; encounter wild Pokémon; build your team; and browse the Pokédex.
 
-## Ejecutar
+Pokémon data, statistics, and sprites are provided by [PokeAPI](https://pokeapi.co/).
+
+## Features
+
+- Explore three areas connected through portals.
+- Random encounters while walking through tall grass.
+- Turn-based battles: attack, throw a Poké Ball, flee, or switch Pokémon.
+- A party of up to six Pokémon; additional captures are stored in the box.
+- Pokédex search by name or number, with types and stats.
+- HP recovery while walking and fainted-Pokémon handling.
+- Automatic saving of the party, HP, area, and player position.
+
+## Technologies
+
+- React 18
+- Vite 5
+- JavaScript and CSS
+- [PokeAPI](https://pokeapi.co/)
+
+## Requirements
+
+- Node.js 18 or later
+- npm
+- An internet connection to query PokeAPI
+
+## Installation and local development
 
 ```bash
+git clone <REPOSITORY-URL>
+cd Pokedex
 npm install
 npm run dev
 ```
 
-Abre la URL que muestra Vite (normalmente http://localhost:5173). Necesita internet para consultar la PokeAPI.
+Open the address shown by Vite in your browser, usually `http://localhost:5173`.
 
-## Controles
+## Controls
 
-| Tecla | Acción |
-|---|---|
-| Flechas / WASD | Moverse |
-| P | Abrir o cerrar la Pokédex |
-| Esc | Cerrar la Pokédex, volver al mapa al terminar una batalla, o ir al título desde el mapa (se guarda solo) |
-| Enter | Continuar al terminar una batalla |
+| Key | Action |
+| --- | --- |
+| Arrow keys or WASD | Move the player |
+| P | Open or close the Pokédex |
+| Esc | Close the Pokédex, return to the map after a battle, or return to the title screen |
+| Enter | Continue after a battle ends |
 
-## Cómo se juega
+## Save data
 
-- Camina por el pasto alto: en cada paso hay probabilidad de un encuentro con un Pokémon salvaje.
-- En la batalla elige **Atacar**, **Pokébola** o **Huir**. Para atrapar a un Pokémon hay que debilitarlo
-  **sin derrotarlo**: cuanto menos vida le quede, más probabilidad de captura.
-- Los círculos amarillos en los bordes del mapa son salidas: el **Bosque** conecta con la **Nieve** (izquierda)
-  y la **Cueva** (derecha). Cada área tiene Pokémon de distintos tipos.
-- La **Pokédex** busca cualquier Pokémon por nombre o número y muestra sus estadísticas.
-- Tu **equipo** son tus primeros 6 Pokémon (Pikachu y lo que atrapes); el resto va a la caja. En batalla usa **Pokémon**
-  para cambiar de uno: gasta el turno (el salvaje ataca al que entra), salvo cuando el anterior se debilitó.
-- Los PS **se conservan entre batallas** y caminar los recupera poco a poco. Un Pokémon debilitado no puede pelear
-  hasta recuperar el 25 % de sus PS (unos 9 pasos). Si todo tu equipo cae, vuelves al inicio del Bosque con todos curados.
-- La pantalla de **título** permite **Continuar**, empezar una **Nueva partida** o **Borrar datos guardados**.
-  El juego se guarda solo (equipo, PS, área y posición) en el navegador (`localStorage`).
+The game automatically saves to the browser's `localStorage` under the `pokegame:save` key. It stores the party, captures, HP, current area, and player position.
 
-## Ajustes rápidos (`src/game/config.js`)
+This lets players continue after refreshing or reopening the browser on the same device and browser. Save data is not shared between users or synchronized across devices, and it is lost if site data is cleared.
 
-`MAX_ID` (Pokémon que pueden aparecer, 151 = Gen 1), `ENCOUNTER_CHANCE`, `STARTER_ID`, `FLEE_CHANCE`, `PLAYER_HP_MULTIPLIER`,
-`PARTY_SIZE` (tamaño del equipo), `REGEN_PER_STEP` (PS que se recuperan por paso) y `REVIVE_AT` (PS necesarios para que un debilitado vuelva a pelear).
+## Game configuration
 
-## Desplegar
+Values such as the starter Pokémon, encounter probability, party size, and HP recovery can be changed in [`src/game/config.js`](src/game/config.js).
+
+## Build and deployment
+
+Create a production build with:
 
 ```bash
-npm run build   # genera dist/
+npm run build
 ```
 
-`vite.config.js` usa `base: "./"`, por lo que `dist/` funciona también bajo un subpath (por ejemplo GitHub Pages).
+The output is created in `dist/`. The project uses `base: "./"` in `vite.config.js`, so it can be deployed to GitHub Pages even when hosted in a subdirectory, such as `https://username.github.io/Pokedex/`.
 
-## Créditos
+For GitHub Pages, publish the generated contents of `dist/`. Map resources are bundled with the deployment; Pokémon data and sprites are requested from PokeAPI at runtime.
 
-Ver `public/sprites/CREDITS.md`.
+## Credits
+
+- Map and player assets: see [`public/sprites/CREDITS.md`](public/sprites/CREDITS.md).
+- Pokémon data and sprites: [PokeAPI](https://pokeapi.co/).
+
+## AI usage
+
+Artificial-intelligence assistance, including **Claude** and **Codex**, was used during development to support ideation, review, debugging, documentation, and implementation improvements. Final decisions, code integration, and validation were completed within this project.
